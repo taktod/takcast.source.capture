@@ -20,8 +20,11 @@ takcastのプロジェクトで
 $ npm install taktod/takcast.source.capture
 ```
 
-これで使えるようにする予定
-現状では、takcast側のソースの修正が必要になるので、本体側参照してください
+そのあとtakcastのプロジェクト側で
+```
+$ npm run setup
+```
+を実行して有効にしてください
 
 # takcastとは
 

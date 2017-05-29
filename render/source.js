@@ -1,39 +1,46 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * カメラ・マイクキャプチャ用のソースをコントロールする
+ */
 var Source = (function () {
     function Source(basePlugin) {
         var _this = this;
+        // 名前はcapture一択
         this.name = "capture";
+        // カメラとマイク両方扱うのでvideo / audio
         this.type = ["video", "audio"];
         this.info = {};
         this.video = document.createElement("video");
-        this.video.style["width"] = "100%";
-        this.video.controls = true;
+        // これいらないかな。
+        //    this.video.style["width"] = "100%";
+        this.video.controls = false; // これ・・・コントロール必要ないと思う
         this.gainNode = basePlugin.refAudioContext().createGain();
         this.gainNode.gain.value = 1.0;
         this.gainNode.connect(basePlugin.refDevnullNode());
         this.stream = null;
+        // そのまま実施するとうまく動作できないので、timeout挟んで遅延処理してやる
         setTimeout(function () {
             if (_this.video) {
                 navigator.mediaDevices.getUserMedia({
                     video: true,
                     audio: true
                 }).then(function (stream) {
+                    // streamを保存。あとで入らなくなったら全trackに対してstopかける
                     _this.stream = stream;
+                    // 音声ノードの準備
                     _this.node = basePlugin.refAudioContext().createMediaStreamSource(stream);
                     _this.node.connect(_this.gainNode);
+                    // videoタグから音声のtrackを切り離しておく
                     stream.getAudioTracks().forEach(function (track) {
                         stream.removeTrack(track);
                     });
                     _this.video.srcObject = stream;
-                    _this.video.play();
+                    _this.video.play(); // 映像表示開始
                 });
             }
         }, 200);
     }
-    /*  public refPaletteComponent():React.ComponentClass<{className:string,onClick:any,href:string,active:boolean,name:string}> {
-        return paletteComponent(this);
-      }*/
     Source.prototype.refAudioNode = function () {
         return this.gainNode;
     };
@@ -66,9 +73,9 @@ var Source = (function () {
         }
         return this.info[mediaPlugin.name];
     };
-    Source.prototype._refGainNode = function () {
+    /*  public _refGainNode():GainNode {
         return this.gainNode;
-    };
+      }*/
     Source.prototype.setVolume = function (value) {
         this.gainNode.gain.value = value / 100;
     };

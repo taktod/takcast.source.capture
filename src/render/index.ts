@@ -8,6 +8,9 @@ import {IPlugin} from "takcast.interface";
 import {pickupComponent} from "./ui/pickupComponent";
 import {Source} from "./source";
 
+/**
+ * render側のplugin実態
+ */
 export class Capture implements ISourcePlugin {
   public name = "capture";
   public type = "source";

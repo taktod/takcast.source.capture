@@ -2,6 +2,9 @@ import { IBasePlugin } from "takcast.interface";
 import { ISource } from "takcast.interface";
 import { ISourceInfo } from "takcast.interface";
 import { IMediaPlugin } from "takcast.interface";
+/**
+ * カメラ・マイクキャプチャ用のソースをコントロールする
+ */
 export declare class Source implements ISource {
     name: string;
     type: string[];
@@ -15,7 +18,6 @@ export declare class Source implements ISource {
     refVideoImage(): HTMLVideoElement;
     release(): void;
     refInfo(mediaPlugin: IMediaPlugin): ISourceInfo;
-    _refGainNode(): GainNode;
     setVolume(value: number): void;
     getVolume(): number;
     refDisplayElement(): HTMLVideoElement;

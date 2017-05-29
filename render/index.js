@@ -2,6 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var pickupComponent_1 = require("./ui/pickupComponent");
 var source_1 = require("./source");
+/**
+ * render側のplugin実態
+ */
 var Capture = (function () {
     function Capture() {
         this.name = "capture";
