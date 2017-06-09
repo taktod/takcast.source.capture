@@ -17,7 +17,7 @@ takcastで利用するnavigator.mediaDevices.getUserMediaで動作するplugin
 takcastのプロジェクトで
 
 ```
-$ npm install taktod/takcast.source.capture
+$ npm install taktod/takcast.source.capture --save
 ```
 
 そのあとtakcastのプロジェクト側で
